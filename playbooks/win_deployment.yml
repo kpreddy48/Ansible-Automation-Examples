@@ -1,10 +1,10 @@
 ---
-  hosts: windows-servers
-  vars:
+ - hosts: windows-servers
+   vars:
     source_path: c:\\inetpub\\wwwroot\\ansibletest"
     deployment_path: "c:\\inetpub\\wwwroot\\ansibletest"
     backup_path: "D:\\inetpub\\wwwroot\\ansibletest"
-  tasks:
+   tasks:
     - name: create staging path
       win_file: path={{ deployment_path }} state=directory
 
