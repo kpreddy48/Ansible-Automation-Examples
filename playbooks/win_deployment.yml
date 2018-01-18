@@ -1,0 +1,28 @@
+---
+  hosts: windows-servers
+  vars:
+    source_path: c:\\inetpub\\wwwroot\\ansibletest"
+    deployment_path: "c:\\inetpub\\wwwroot\\ansibletest"
+    backup_path: "D:\\inetpub\\wwwroot\\ansibletest"
+  tasks:
+    - name: create staging path
+      win_file: path={{ deployment_path }} state=directory
+
+    - name: create staging path
+      win_file: path={{ backup_path }} state=directory
+
+    - name: Backup packages
+      archive:
+        src: "{{ {{ deployment_path }} }}\index.html"
+        dest: {{ backup_path }}
+
+    - name: Copy deplyoment package
+      win_copy:
+        src: {{ source_path }}/index.html
+        dest: {{ deplyoment_path}}/
+
+    - name: unzip code to site path
+      win_unzip:
+        src: "{{ ansible_test_staging_path }}\\site.zip"
+        dest: "{{ ansible_site_path }}"
+        creates: "{{ ansible_site_path }}\\index.html"

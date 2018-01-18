@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "test if x=1"
+      command: echo x=1
+      when: x == '1'
